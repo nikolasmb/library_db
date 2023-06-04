@@ -1,0 +1,138 @@
+{% extends "global_layout.html" %}
+{% block title %}Home Administrator{% endblock title %}
+{% block content %}
+<head>
+  <title>Home Administrator</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #b3d1ff;
+    }
+
+    .container {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      height: 100vh;
+      background-color: #b3d1ff;
+      padding: 20px;
+    }
+
+    .messages-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      background-color: white;
+      padding: 10px;
+      border-radius: 4px;
+      width: 45%;
+      max-width: 45vw;
+      border: 8px solid white;
+    }
+
+    .message {
+      margin-bottom: 5px;
+      padding: 5px;
+      background-color: #ffffff;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 100%;
+    }
+
+    .message:hover {
+      background-color: #f2f2f2;
+    }
+
+    .message h3 {
+      font-size: 22px;
+      margin: 0;
+      color: #1976d2;
+    }
+
+    .message p {
+      margin: 0;
+      color: #555555;
+    }
+
+    .title {
+      font-size: 40px;
+      margin: 0;
+      color: #000000;
+      background-color: lightgray;
+      padding: 10px;
+      border-radius: 4px;
+      width: 100%;
+    }
+
+    .gap {
+      height: 10px;
+      width: 100%;
+      background-color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="messages-container">
+      <div class="title">Administrator Queries</div>
+      <div class="gap"></div>
+      <div class="message" onclick="window.location.href='/query411'">
+        <h3>(4.1.1) Loans per School</h3>
+        <p>List with the total number of loans per school. Click to view more.</p>
+      </div>
+      <div class="gap"></div>
+      <div class="message" onclick="window.location.href='/'">
+        <h3>(4.1.2) Books borrowed from Authors and Professors (per Category)</h3>
+        <p>List of authors and which professors that have borrowed books from a given category in the last year? Click to view more.</p>
+      </div>
+      <div class="gap"></div>
+      <div class="message" onclick="window.location.href='/'">
+        <h3>(4.1.3) Young Professors with most Books borrowed</h3>
+        <p>List of young teachers (age < 40 years) who have borrowed the most books and the number of books. Click to view more.</p>
+      </div>
+      <div class="gap"></div>
+      <div class="message" onclick="window.location.href='/'">
+        <h3>(4.1.4) Authors with no Books borrowed</h3>
+        <p>List of authors whose books have not been borrowed. Click to view more.</p>
+      </div>
+      <div class="gap"></div>
+      <div class="message" onclick="window.location.href='/'">
+        <h3>(4.1.5) Operators with the same number of Loans</h3>
+        <p>List of operators that have loaned the same number of books in a year with more than 20 loans. Click to view more.</p>
+      </div>
+      <div class="gap"></div>
+      <div class="message" onclick="window.location.href='/'">
+        <h3>(4.1.6) Top 3 Category Pairs</h3>
+        <p>List of the top 3 pairs of categories that appear in borrowings. Click to view more.</p>
+      </div>
+      <div class="gap"></div>
+      <div class="message" onclick="window.location.href='/'">
+        <h3>(4.1.7) Authors with at least 5 less Books than max</h3>
+        <p>List of all authors who have written at least 5 books less than the author with the most books. Click to view more.</p>
+      </div>
+    </div>
+    <div class="messages-container">
+      <div class="title">Administrator Capabilities</div>
+      <div class="gap"></div>
+      <div class="message" onclick="window.location.href='/'">
+        <h3>Manage Schools</h3>
+        <p>A list with all the schools of the network. Click to view more.</p>
+      </div>
+      <div class="gap"></div>
+      <div class="message" onclick="window.location.href='/'">
+        <h3>Manage Operators</h3>
+        <p>A list with all the operators of the network. Click to view more.</p>
+      </div>
+      <div class="gap"></div>
+      <div class="message" onclick="window.location.href='/'">
+        <h3>Make a Back-Up of the Database</h3>
+        <p>Make a full back-up of the database. Click to view more.</p>
+      </div>
+    </div>
+  </div>
+</body>
+{% endblock content %}

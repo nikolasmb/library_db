@@ -1,0 +1,163 @@
+
+{% extends "global_layout.html" %}
+{% block title %}Book List{% endblock title %}
+{% block content %}
+
+<head>
+    <title>Book List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #b3d1ff;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+            background-color: #b3d1ff;
+            padding: 20px;
+            margin: 0 auto;
+        }
+
+        .title-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .title {
+            font-size: 36px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 90%;
+            max-width: 1000px;
+            background-color: #ffffff;
+            border: 8px solid #ffffff;
+            border-radius: 10px;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        td:first-child {
+            width: 40%;
+            max-width: 400px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #1976d2;
+        }
+
+        .more-button {
+            width: 100%;
+            padding: 5px 10px;
+            background-color: lightgray;
+            color: black;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; 
+            margin-bottom: 20px;
+            width: 100%; 
+            max-width: 1000px; 
+            margin: 0 auto; 
+        }
+    
+        .form-row {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap; 
+        }
+    
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-right: 20px;
+            margin-bottom: 10px; 
+            flex: 1; 
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        .form-control {
+            padding: 5px;
+        }
+
+        .submit-button {
+            width: auto;
+            padding: 5px 10px;
+            background-color: lightgray;
+            color: black;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="title-row">
+            <h1 class="title">Query 4.1.2</h1>
+        </div>
+        <div class="form-container">
+            <form>
+                <select class="form-control" id="category" name="category">
+                    <option value="" disabled selected>Select your category</option>
+                    {% for category in categories %}
+                        <option value="{{ category[0] }}">{{ category[0] }}</option>
+                    {% endfor %}
+                </div>
+                <div class="form-row">
+                    <button type="submit" class="submit-button">Submit</button>
+                </div>
+            </form>
+        </div>
+        <table>
+            <tr>
+                <th>Author ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+            </tr>
+            {% for author in authors %}
+            <tr>
+                <td>{{ author[1] }}</td>
+                <td>{{ author[2] }}</td>
+                <td>{{ author[0] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <script>
+        function redirectTo(route) {
+            window.location.href = route;
+        }
+    </script>
+</body>
+{% endblock content %}

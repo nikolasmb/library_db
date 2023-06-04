@@ -1,0 +1,140 @@
+{% extends "global_layout.html" %}
+{% block title %}Login{% endblock title %}
+{% block content %}
+
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #b3d1ff;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .center-heading {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 30px;
+        }
+
+        .login-form {
+            width: 400px;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 4px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .input-container {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 12px;
+            font-size: 18px;
+            background-color: #1976d2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .return-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #1976d2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="center-heading">Enter your username and password!</h1>
+        <div class="login-form">
+            <form method="POST">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username">
+                    <div id="username-error" class="error-message"></div>
+                </div>   
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
+                    <div id="password-error" class="error-message"></div>
+                </div>
+                <br />
+                <button type="submit" class="btn btn-primary" onclick="return validateLoginForm()">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function validateLoginForm() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            var usernameError = document.getElementById("username-error");
+            var passwordError = document.getElementById("password-error");
+
+            usernameError.textContent = "";
+            passwordError.textContent = "";
+
+            if (username === "" && password === "") {
+                usernameError.textContent = "Please enter your username";
+                passwordError.textContent = "Please enter your password";
+                return false;
+            }
+
+            if (username === "") {
+                usernameError.textContent = "Please enter your username";
+                return false;
+            }
+
+            if (password === "") {
+                passwordError.textContent = "Please enter your password";
+                return false;
+            }
+
+
+            return true;
+        }
+
+    </script>
+</body>
+
+{% endblock content %}
+

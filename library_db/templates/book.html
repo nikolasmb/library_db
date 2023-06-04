@@ -1,0 +1,171 @@
+{% extends "global_layout.html" %}
+{% block title %}Book List{% endblock title %}
+{% block content %}
+<head>
+    <title>Book Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #b3d1ff;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start; 
+            width: 80%;
+            max-width: 800px;
+            margin: 0 auto; 
+            background-color: #b3d1ff;
+            padding: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            background-color: #ffffff;
+            border: 8px solid #ffffff;
+            border-radius: 10px;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #1976d2;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 0;
+            padding: 10px;
+            color: #000000;
+            background-color: lightgray;
+            border-radius: 4px;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        td:first-child {
+            width: 40%;
+            max-width: 400px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .request-button {
+            width: 100%;
+            padding: 10px;
+            background-color: lightgray;
+            color: black;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 0px;
+        }
+
+        .label {
+            display: block;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Book Profile</h1>
+        <table>
+            <tr>
+                <th>Attribute</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td>Book Title</td>
+                <td>{{ book[0][2] }}</td>
+            </tr>
+            <tr>
+                <td>ISBN</td>
+                <td>{{ book[0][1] }}</td>
+            </tr>
+            <tr>
+                <td>Authors</td>
+                <td>{{ book[0][9] }}</td>
+            </tr>
+            <tr>
+                <td>Publisher</td>
+                <td>{{ book[0][3] }}</td>
+            </tr>
+            <tr>
+                <td>Categories</td>
+                <td>{{ book[0][8] }}</td>
+            </tr>
+            <tr>
+                <td>Keywords</td>
+                <td>{{ book[0][10] }}</td>
+            </tr>
+            <tr>
+                <td>Number of Pages</td>
+                <td>{{ book[0][4] }}</td>
+            </tr>
+            <tr>
+                <td>Language</td>
+                <td>{{ book[0][7] }}</td>
+            </tr>
+            <tr>
+                <td>Image URL</td>
+                <td>{{ book[0][6] }}</td>
+            </tr>
+            <tr>
+                <td>Summary</td>
+                <td>{{ book[0][5] }}</td>
+            </tr>
+            <tr>
+                <td>Reviews</td>
+                <td><a href="/books-list/book/reviews">Click here to see Reviews</a></td>
+            </tr>
+            <tr>
+                <td>Available Copies</td>
+                <td>{{ book[0][11] }}</td>
+            </tr>
+        </table>
+        <button class="request-button" onclick="redirectToAnotherRoute()">Request This Book</button>
+
+        <div style="text-align: center;">
+            <label for="label1" class="label">If there available copies for this book, you will make a request to borrow this book.</label>
+            <label for="label2" class="label">If there are no available copies at the moment, your will make a reservation for when the book is available.</label>
+        </div>
+    </div>
+
+    <script>
+        function redirectToAnotherRoute() {
+            window.location.href = "/books-list/book/request?isbn={{ book[0][1] }}&available_copies={{ book[0][11] }}";
+        }
+    </script>
+</body>
+
+{% endblock content %}

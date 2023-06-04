@@ -1,0 +1,253 @@
+{% extends "global_layout.html" %}
+{% block title %}User Registration{% endblock title %}
+{% block content %}
+
+    <head>
+        <title>Sign Up as Operator</title>
+        <script>
+
+            function validateForm(event) {
+
+                event.preventDefault();
+
+                var username = document.getElementById('username').value;
+                var password = document.getElementById('password').value;
+                var firstName = document.getElementById('first-name').value;
+                var lastName = document.getElementById('last-name').value;
+                var email = document.getElementById('email').value;
+                var dateOfBirth = document.getElementById('date-of-birth').value;
+                var school = document.getElementById('school').value;
+
+                document.getElementById('username-error').innerHTML = '';
+                document.getElementById('password-error').innerHTML = '';
+                document.getElementById('first-name-error').innerHTML = '';
+                document.getElementById('last-name-error').innerHTML = '';
+                document.getElementById('email-error').innerHTML = '';
+                document.getElementById('date-of-birth-error').innerHTML = '';
+                document.getElementById('school-error').innerHTML = '';
+        
+                var isValid = true;
+        
+                if (username.trim() === '') {
+                    document.getElementById('username-error').innerHTML = 'Please enter your username.';
+                    isValid = false;
+                }
+        
+                if (password.trim() === '') {
+                    document.getElementById('password-error').innerHTML = 'Please enter your password.';
+                    isValid = false;
+                }
+        
+                if (firstName.trim() === '') {
+                    document.getElementById('first-name-error').innerHTML = 'Please enter your first name.';
+                    isValid = false;
+                } else if (!isValidNameFormat(firstName)) {
+                    document.getElementById('first-name-error').innerHTML = 'Invalid first name format.';
+                    isValid = false;
+                }
+        
+                if (lastName.trim() === '') {
+                    document.getElementById('last-name-error').innerHTML = 'Please enter your last name.';
+                    isValid = false;
+                } else if (!isValidNameFormat(lastName)) {
+                    document.getElementById('last-name-error').innerHTML = 'Invalid last name format.';
+                }
+        
+                if (email.trim() === '') {
+                    document.getElementById('email-error').innerHTML = 'Please enter your email.';
+                    isValid = false;
+                } else if (!isValidEmail(email)) {
+                    document.getElementById('email-error').innerHTML = 'Invalid email format.';
+                    isValid = false;
+                }
+
+                if (dateOfBirth === '') {
+                    document.getElementById('date-of-birth-error').innerHTML = 'Please enter your date of birth.';
+                    isValid = false;
+                }
+
+                if (school === '') {
+                    document.getElementById('school-error').innerHTML = 'Please select your school.';
+                    isValid = false;
+                }
+
+                if (isValid) {
+                    document.getElementById('error-container').innerHTML = ''; 
+                    event.target.submit(); 
+                }
+                
+                return isValid;
+            }
+
+
+            function isValidNameFormat(name) {
+                var nameRegex = /^[A-Z][a-z]*$/;
+                return nameRegex.test(name);
+            }
+        
+            function isValidEmail(email) {
+                var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+            function selectOption(option) {
+                var selectedOption = document.querySelector(".selected-option");
+                selectedOption.textContent = option;
+                var dropdownOptions = document.querySelector(".dropdown-options");
+                dropdownOptions.style.display = "none";
+            }
+
+            function toggleDropdown(event) {
+                var dropdownOptions = document.querySelector(".dropdown-options");
+                if (dropdownOptions.style.display === "none") {
+                    dropdownOptions.style.display = "block";
+                } else {
+                    dropdownOptions.style.display = "none";
+                }
+            }
+            
+            function selectOption(option) {
+                var selectedOption = document.querySelector(".selected-option");
+                selectedOption.textContent = option;
+                var dropdownOptions = document.querySelector(".dropdown-options");
+                dropdownOptions.style.display = "none";
+            }
+            
+            document.addEventListener("click", function(event) {
+                var dropdown = document.querySelector(".dropdown");
+                if (!dropdown.contains(event.target)) {
+                    var dropdownOptions = document.querySelector(".dropdown-options");
+                    dropdownOptions.style.display = "none";
+                }
+            });
+
+        
+        </script>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #b3d1ff;
+            }
+            .container {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                background-color: #b3d1ff;
+            }
+            .user-container {
+                justify-content: center;
+                align-items: center;
+            }
+            .input-container {
+                margin: 10px;
+            }
+            input[type="text"], input[type="password"] {
+                padding: 5px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                display: block;
+                margin-top: 5px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+            .dropdown {
+                position: relative;
+                display: inline-block;
+                cursor: pointer;
+            }
+            .selected-option {
+                background-color: #f2f2f2;
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+            .dropdown-options {
+                display: none;
+                position: absolute;
+                background-color: #fff;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                margin-top: 5px;
+                width: 100%;
+            }
+            .option {
+                padding: 8px;
+                cursor: pointer;
+            }
+            .option:hover {
+                background-color: #f9f9f9;
+            }
+            button {
+                margin-top: 20px;
+                padding: 10px 20px;
+                font-size: 16px;
+                background-color: #1976d2;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+            .error {
+                font-size: 15px;
+                color: red;
+                marging-top: 3px;
+            }
+        </style>
+    </head>
+    <body> 
+        <div class="container">
+            <h1 class="center-heading">Register as Operator</h1>
+            <div class="register-form">
+                <form method="POST" onsubmit="return validateForm(event)">
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" value="{{ username }}">
+                        <span class="error" id="username-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" value="{{ password }}">
+                        <span class="error" id="password-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="first-name">First Name:</label>
+                        <input type="text" class="form-control" id="first-name" name="first-name" placeholder="e.g. Will" oninput="checkFirstNameValidity()" value="{{ first_name }}">
+                        <span class="error" id="first-name-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="last-name">Last Name:</label>
+                        <input type="text" class="form-control" id="last-name" name="last-name" placeholder="e.g. Smith" oninput="checkLastNameValidity()" value="{{ last_name }}">
+                        <span class="error" id="last-name-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="text" class="form-control" id="email" name="email" placeholder="e.g. example@example.com" oninput="checkEmailValidity()" value="{{ email }}">
+                        <span class="error" id="email-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="date-of-birth">Date of Birth:</label>
+                        <input type="date" class="form-control" id="date-of-birth" name="date-of-birth">
+                        <span class="error" id="date-of-birth-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="school">School:</label>
+                        <select class="form-control" id="school" name="school">
+                            <option value="" disabled selected>Select your school</option>
+                            {% for school in schools %}
+                            <option value="{{ school[0] }}">{{ school[1] }}</option>
+                            {% endfor %}
+                        </select>
+                        <span class="error" id="school-error"></span>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </form>
+                <div id="error-container"></div>
+            </div>
+        </div>
+    </body>
+
+{% endblock content %}
+

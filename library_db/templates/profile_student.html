@@ -1,0 +1,182 @@
+{% extends "global_layout.html" %}
+{% block title %}User Profile{% endblock title %}
+{% block content %}
+<head>
+    <title>User Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #b3d1ff;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start; 
+            height: 100vh;
+            background-color: #b3d1ff;
+            padding: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            max-width: 800px;
+            background-color: #ffffff;
+            border: 8px solid #ffffff;
+            border-radius: 10px;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #1976d2;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 0;
+            padding: 10px;
+            color: #000000;
+            background-color: lightgray;
+            border-radius: 4px;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .hidden-container {
+            display: none;
+            margin-top: 20px;
+            height: auto;
+            width: 80%;
+            max-width: 800px;
+            background-color: #ffffff;
+            border: 8px solid #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .change-password-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 14px;
+            border-radius: 4px;
+            background-color: #1976d2;
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>User Profile</h1>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td>User ID</td>
+                <td>{{ user_id }}</td>
+            </tr>
+            <tr>
+                <td>Username</td>
+                <td>{{ username }}</td>
+            </tr>
+            <tr>
+                <td>First Name</td>
+                <td>{{ first_name }}</td>
+            </tr>
+            <tr>
+                <td>Last Name</td>
+                <td>{{ last_name }}</td>
+            </tr>
+            <tr>
+                <td>User Type</td>
+                <td>{{ user_type }}</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>{{ email }}</td>
+            </tr>
+            <tr>
+                <td>Date of Birth</td>
+                <td>{{ date_of_birth }}</td>
+            </tr>
+            <tr>
+                <td>School Name</td>
+                <td>{{ school_name }}</td>
+            </tr>
+            <tr>
+                <td>Books borrowed currently</td>
+                <td>{{ borrowing_number }}</td>
+            </tr>
+            <tr>
+                <td>Books reserved currently</td>
+                <td>{{ reservation_number }}</td>
+            </tr>
+        </table>
+        <div class="hidden-container" id="hidden-container" {% if show_container %}style="display: block;"{% endif %}>
+            <form id="password-form" class="edit-form2" {% if show_container %}style="display: block"{% endif %} method="POST">
+                <div class="form-group">
+                    <label for="old-password">Old Password:</label>
+                    <input type="password" class="form-control" id="current-password" name="current-password" placeholder="Enter your current password">
+                </div>
+                <div class="form-group">
+                    <label for="new-password">New Password:</label>
+                    <input type="password" class="form-control" id="new-password" name="new-password" placeholder="Enter your new password">
+                </div>
+                <button type="submit" class="btn btn-primary">Change</button>
+            </form>
+        </div>
+        <button class="change-password-button" onclick="toggleDetails()" id="show-details-button">Change Password</button>
+    </div>
+    <script>
+        function toggleDetails() {
+            var hiddenContainer = document.getElementById("hidden-container");
+            var passwordForm = document.getElementById("password-form");
+            var button = document.getElementById("show-details-button");
+            if (hiddenContainer.style.display === "none") {
+                hiddenContainer.style.display = "block";
+                passwordForm.style.display = "block";
+                button.textContent = "Hide Details";
+                containerVisible = true;
+            } else {
+                hiddenContainer.style.display = "none";
+                passwordForm.style.display = "none";
+                button.textContent = "Change Password";
+                containerVisible = false;
+            }
+        }
+
+    </script>
+</body>
+{% endblock content %}

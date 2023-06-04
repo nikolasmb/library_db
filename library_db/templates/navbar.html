@@ -1,0 +1,38 @@
+<nav class="navbar navbar-light navbar-expand-md" id="nav-bar">
+    <div id="navbar-div" class="container-fluid">
+        <a class="navbar-brand" id="nav-bar-text">Public School Library Network - {{ pageTitle }}</a>
+
+        <div class="navbar-collapse justify-content-end">
+            <ul class="navbar-nav">
+                {% if session.logged_in %}
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/profile">
+                            <i class="fa fa-user"></i> Profile
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% if session.logged_in %}
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/logout">
+                            <i class="fa fa-sign-out"></i> Logout
+                        </a>
+                    </li>
+                {% endif %}
+
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/">
+                        <i class="fa fa-home"></i> Home Page
+                    </a>
+                </li>
+                {% if current_route != '/' %}
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="javascript:history.back()">
+                            <i class="fa fa-arrow-left"></i> Go Back
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

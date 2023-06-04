@@ -1,0 +1,186 @@
+{% extends "global_layout.html" %}
+{% block title %}Book List{% endblock title %}
+{% block content %}
+
+<head>
+    <title>Book List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #b3d1ff;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+            background-color: #b3d1ff;
+            padding: 20px;
+            margin: 0 auto;
+        }
+
+        .title-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .title {
+            font-size: 36px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 90%;
+            max-width: 1000px;
+            background-color: #ffffff;
+            border: 8px solid #ffffff;
+            border-radius: 10px;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        td:first-child {
+            width: 40%;
+            max-width: 400px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #1976d2;
+        }
+
+        .more-button {
+            width: 100%;
+            padding: 5px 10px;
+            background-color: lightgray;
+            color: black;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            width: 100%; 
+            max-width: 1000px; 
+            margin: 0 auto; 
+        }
+    
+        .form-row {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap; 
+        }
+    
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-right: 20px;
+            margin-bottom: 10px; 
+            flex: 1; 
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        .form-control {
+            padding: 5px;
+        }
+
+        .submit-button {
+            width: auto;
+            padding: 5px 10px;
+            background-color: lightgray;
+            color: black;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="title-row">
+            <h1 class="title">Books Available in your School</h1>
+        </div>
+        <div class="form-container">
+            <form method="POST">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="title">Search Title:</label>
+                        <input type="text" class="form-control" id="title" name="title" placeholder="Enter title">
+                        <div id="input1-error" class="error-message"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="input2">Search Author:</label>
+                        <input type="text" class="form-control" id="author" name="author" placeholder="Enter author">
+                        <div id="input2-error" class="error-message"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="input3">Search Category:</label>
+                        <input type="text" class="form-control" id="category" name="category" placeholder="Enter category">
+                        <div id="input3-error" class="error-message"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="submit-button" onclick="return validateForm()">Search</button>
+                </div>
+            </form>
+        </div>
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>ISBN</th>
+                <th>Authors</th>
+                <th>Publisher</th>
+                <th>Categories</th>
+                <th>Keywords</th>
+                <th>Available Copies</th>
+                <th></th>
+            </tr>
+            {% for book in books %}
+            <tr>
+                <td>{{ book[2] }}</td>
+                <td>{{ book[1] }}</td>
+                <td>{{ book[5] }}</td>
+                <td>{{ book[3] }}</td>
+                <td>{{ book[4] }}</td>
+                <td>{{ book[6] }}</td>
+                <td>{{ book[7] }}</td>
+                <td>
+                    <button class="more-button" onclick="redirectTo('/books-list/book?isbn={{ book[1] }}')">More</button>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <script>
+        function redirectTo(route) {
+            window.location.href = route;
+        }
+    </script>
+</body>
+
+{% endblock content %}

@@ -1,0 +1,58 @@
+{% extends "global_layout.html" %}
+{% block title %}Landing{% endblock title %}
+{% block content %}
+<head>
+  <title>Landing</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #b3d1ff;
+    }
+
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+
+    .welcome-message {
+      margin-bottom: 80px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .buttons button {
+      margin-top: 5px;
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #1976d2;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="welcome-message">
+      <h1>Welcome to the official page of</h1>
+      <h1>Public School Library Network!</h1>
+    </div>
+    <div class="buttons">
+      <button onclick="window.location.href='/login'">Login</button>
+      <button onclick="window.location.href='/register-user'">Sign up (User)</button>
+      <button onclick="window.location.href='/register-operator'">Sign up (Operator)</button>
+    </div>
+  </div>
+</body>
+{% endblock content %}

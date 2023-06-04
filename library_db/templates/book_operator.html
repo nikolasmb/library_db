@@ -1,0 +1,311 @@
+{% extends "global_layout.html" %}
+{% block title %}Book Profile{% endblock title %}
+{% block content %}
+<head>
+    <title>Book Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #b3d1ff;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start; 
+            width: 80%;
+            max-width: 800px;
+            margin: 0 auto; 
+            background-color: #b3d1ff;
+            padding: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            background-color: #ffffff;
+            border: 8px solid #ffffff;
+            border-radius: 10px;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #1976d2;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 0;
+            padding: 10px;
+            color: #000000;
+            background-color: lightgray;
+            border-radius: 4px;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        td:first-child {
+            width: 40%;
+            max-width: 400px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .edit-button {
+            padding: 6px 12px;
+            background-color: #ccc;
+            color: #000;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .edit-text {
+            display: block;
+        }
+
+        .edit-form {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .label {
+            display: block;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        .request-button{
+            padding: 6px 12px;
+            background-color: #ccc;
+            color: #000;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1>Book Profile</h1>
+        <table>
+            <tr>
+                <th>Attribute</th>
+                <th>Value</th>
+                <th></th>
+            </tr>
+            <tr>
+                <td>Book Title</td>
+                <td>
+                    <div id="title-text" class="edit-text">{{ book[0][2] }}</div>
+                    <form id="title-form" class="edit-form" style="display: none;" method="POST">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="title-input" name="title" placeholder="Enter the book title" value="{{ book[0][2] }}">
+                        </div>
+                        <button type="submit" class="edit-button">Save</button>
+                    </form>
+                </td>
+                <td>
+                    <button class="edit-button" onclick="toggleEdit('title')">Edit</button>
+                </td>
+            </tr>
+            <tr>
+                <td>ISBN</td>
+                <td>{{ book[0][1] }}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Authors</td>
+                <td>
+                    <div id="authors-text" class="edit-text">{{ book[0][9] }}</div>
+                    <form id="authors-form" class="edit-form" style="display: none;" method="POST">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="authors-input" name="authors" placeholder="Enter the authors" value="{{ book[0][9] }}">
+                        </div>
+                        <button type="submit" class="edit-button">Save</button>
+                    </form>
+                </td>
+                <td>
+                    <button class="edit-button" onclick="toggleEdit('authors')">Edit</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Publisher</td>
+                <td>
+                    <div id="publisher-text" class="edit-text">{{ book[0][3] }}</div>
+                    <form id="publisher-form" class="edit-form" style="display: none;" method="POST">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="publisher-input" name="publisher" placeholder="Enter the publisher" value="{{ book[0][3] }}">
+                        </div>
+                        <button type="submit" class="edit-button">Save</button>
+                    </form>
+                </td>
+                <td>
+                    <button class="edit-button" onclick="toggleEdit('publisher')">Edit</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Categories</td>
+                <td>
+                    <div id="categories-text" class="edit-text">{{ book[0][8] }}</div>
+                    <form id="categories-form" class="edit-form" style="display: none;" method="POST">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="categories-input" name="categories" placeholder="Enter the categories" value="{{ book[0][8] }}">
+                        </div>
+                        <button type="submit" class="edit-button">Save</button>
+                    </form>
+                </td>
+                <td>
+                    <button class="edit-button" onclick="toggleEdit('categories')">Edit</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Keywords</td>
+                <td>
+                    <div id="keywords-text" class="edit-text">{{ book[0][10] }}</div>
+                    <form id="keywords-form" class="edit-form" style="display: none;" method="POST">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="keywords-input" name="keywords" placeholder="Enter the keywords" value="{{ book[0][10] }}">
+                        </div>
+                        <button type="submit" class="edit-button">Save</button>
+                    </form>
+                </td>
+                <td>
+                    <button class="edit-button" onclick="toggleEdit('keywords')">Edit</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Number of Pages</td>
+                <td>
+                    <div id="pages-text" class="edit-text">{{ book[0][4] }}</div>
+                    <form id="pages-form" class="edit-form" style="display: none;" method="POST">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="pages-input" name="pages" placeholder="Enter the number of pages" value="{{ book[0][4] }}">
+                        </div>
+                        <button type="submit" class="edit-button">Save</button>
+                    </form>
+                </td>
+                <td>
+                    <button class="edit-button" onclick="toggleEdit('pages')">Edit</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Language</td>
+                <td>
+                    <div id="language-text" class="edit-text">{{ book[0][7] }}</div>
+                    <form id="language-form" class="edit-form" style="display: none;" method="POST">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="language-input" name="language" placeholder="Enter the language" value="{{ book[0][7] }}">
+                        </div>
+                        <button type="submit" class="edit-button">Save</button>
+                    </form>
+                </td>
+                <td>
+                    <button class="edit-button" onclick="toggleEdit('language')">Edit</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Image URL</td>
+                <td>
+                    <div id="image-url-text" class="edit-text">{{ book[0][6] }}</div>
+                    <form id="image-url-form" class="edit-form" style="display: none;" method="POST">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="image-url-input" name="image-url" placeholder="Enter the image URL" value="{{ book[0][6] }}">
+                        </div>
+                        <button type="submit" class="edit-button">Save</button>
+                    </form>
+                </td>
+                <td>
+                    <button class="edit-button" onclick="toggleEdit('image-url')">Edit</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Summary</td>
+                <td>
+                    <div id="summary-text" class="edit-text">{{ book[0][5] }}</div>
+                    <form id="summary-form" class="edit-form" style="display: none;" method="POST">
+                        <div class="form-group">
+                            <textarea class="form-control" id="summary-input" name="summary" placeholder="Enter the book summary">{{ book[0][5] }}</textarea>
+                        </div>
+                        <button type="submit" class="edit-button">Save</button>
+                    </form>
+                </td>
+                <td>
+                    <button class="edit-button" onclick="toggleEdit('summary')">Edit</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Reviews</td>
+                <td><a href="/books-list/book/reviews">Click here to see Reviews</a></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Available Copies</td>
+                <td>
+                    <div id="copies-text" class="edit-text">{{ book[0][11] }}</div>
+                    <form id="copies-form" class="edit-form" style="display: none;" method="POST">
+                        <div class="form-group">
+                            <input type="number" class="form-control" id="copies-input" name="copies" placeholder="Enter the number of copies" value="{{ book[0][11] }}">
+                        </div>
+                        <button type="submit" class="edit-button">Save</button>
+                    </form>
+                </td>
+                <td>
+                    <button class="edit-button" onclick="toggleEdit('copies')">Edit</button>
+                </td>
+            </tr>
+        </table>
+        <button class="request-button" onclick="redirectToAnotherRoute()">Delete this Book</button>
+    </div>
+
+    <script>
+        function toggleEdit(attribute) {
+            var textElement = document.getElementById(attribute + "-text");
+            var formElement = document.getElementById(attribute + "-form");
+            if (textElement && formElement) {
+                if (textElement.style.display === "none") {
+                    textElement.style.display = "block";
+                    formElement.style.display = "none";
+                } else {
+                    textElement.style.display = "none";
+                    formElement.style.display = "block";
+                }
+            }
+        }
+
+        function redirectToAnotherRoute() {
+            window.location.href = "/books-list/book/delete?isbn={{ book[0][1] }}";
+        }
+    </script>
+</body>
+
+{% endblock content %}

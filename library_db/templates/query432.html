@@ -1,0 +1,121 @@
+{% extends "global_layout.html" %}
+{% block title %}Book List{% endblock title %}
+{% block content %}
+
+<head>
+    <title>Book List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #b3d1ff;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+            background-color: #b3d1ff;
+            padding: 20px;
+            margin: 0 auto;
+        }
+
+        .title-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .title {
+            font-size: 36px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 90%;
+            max-width: 1000px;
+            background-color: #ffffff;
+            border: 8px solid #ffffff;
+            border-radius: 10px;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        td:first-child {
+            width: 40%;
+            max-width: 400px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #1976d2;
+        }
+
+        .more-button {
+            width: 100%;
+            padding: 5px 10px;
+            background-color: lightgray;
+            color: black;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .table-spacing {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="title-row">
+            <h1 class="title">Borrowed Books</h1>
+        </div>
+        <table class="table-spacing">
+            <tr>
+                <th>Title</th>
+                <th>ISBN</th>
+                <th>Day Borrowed</th>
+                <th>Due Date</th>
+                <th>Return Book</th>
+            </tr>
+            {% for book in books %}
+            <tr>
+                <td>{{ book[0] }}</td>
+                <td>{{ book[1] }}</td>
+                <td>{{ book[2] }}</td>
+                {% if book[5] %}
+                    <td>{{ book[3] }}</td>
+                {% else %}
+                    <td>Not Accepted Yet</td>
+                {% endif %}
+                <td>
+                    <button class="more-button" onclick="redirectTo('/books-list/book?isbn={{ book[1] }}')">More</button>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <script>
+        function redirectTo(route) {
+            window.location.href = route;
+        }
+    </script>
+</body>
+
+{% endblock content %}
